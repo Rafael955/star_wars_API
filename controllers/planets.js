@@ -4,8 +4,8 @@ const api = require("../services/api");
 const getAll = async ({ Planet }, req, res) => {
   const planets = await Planet.find({});
 
-  // res.send(planets);
-  res.render('planets/index', { planets });
+  res.send(planets);
+  // res.render('planets/index', { planets });
 };
 
 /**get one planet by id */
