@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+app.use(bodyParser({ extended: true }));
 
 const planets = require("./routes/planets");
 

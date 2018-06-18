@@ -1,10 +1,63 @@
-<h1>Front-end test</h1>
-<h2>Lista de Planetas</h2>
-<hr/>
-<% planets.map(planet => { %>
-<p>Nome: <%=planet.name%> </p>
-<p>Clima: <%=planet.climate%> </p>
-<p>Terreno: <%=planet.terrain%> </p>
-<p>Aparições em filmes: <%=planet.aparicoes%> </p>
-<hr/>
-<% }) %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        .teste {
+            display: flex;
+            flex-direction: column;
+            width: 200px; 
+            height: 200px;
+        }
+        .teste h4 {
+            margin: 10px 0 5px 0;
+        }
+
+        .teste input {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <section class="list">
+        <h1>Front-end test</h1>
+        <h2>Lista de Planetas</h2>
+        <hr/>
+        <% planets.map(planet => { %>
+            <p>Nome:
+                <%=planet.name%>
+            </p>
+            <p>Clima:
+                <%=planet.climate%>
+            </p>
+            <p>Terreno:
+                <%=planet.terrain%>
+            </p>
+            <p>Aparições em filmes:
+                <%=planet.aparicoes%>
+            </p>
+            <hr/>
+            <% }) %>
+    </section>
+    <section class="teste">
+        <h4>Cadastro de teste</h4>
+        <form method="post">
+            <label for="name">Nome do planeta:</label>
+            <input type="text" name="name" id="name" />
+            <label for="climate">Clima:</label>
+            <input type="text" name="climate" id="climate" />
+            <label for="terrain">Terreno:</label>
+            <input type="text" name="terrain" id="terrain" />
+            <button type="submit">Cadastrar Planeta</button>
+        </form>
+    </section>
+</body>
+
+</html>

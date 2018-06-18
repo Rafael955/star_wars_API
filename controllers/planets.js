@@ -2,10 +2,23 @@ const api = require("../services/api");
 
 /** list all planets */
 const getAll = async ({ Planet }, req, res) => {
-  const planets = await Planet.find({});
+  try {
+    const planets = await Planet.find({});
 
-  res.send(planets);
-  // res.render('planets/index', { planets });
+    if (planets.length === 0) {
+      res.send({
+        success: false,
+        message: "Nenhum planeta cadastrado."
+      });
+    }
+    res.send(planets);
+    // res.render("planets/index", { planets });
+  } catch (e) {
+    res.send({
+      success: false,
+      errors: Object.keys(e.errors)
+    });
+  }
 };
 
 /**get one planet by id */
@@ -16,7 +29,7 @@ const getById = async ({ Planet }, req, res) => {
     if (planet === null) {
       res.send({
         success: false,
-        message: "planet not found"
+        message: "planeta não encontrado"
       });
     } else {
       res.send(planet);
@@ -32,12 +45,12 @@ const getById = async ({ Planet }, req, res) => {
 /**get one planet by name */
 const getByName = async ({ Planet }, req, res) => {
   try {
-    const planet = await Planet.find({ name: req.params.name });
+    const planet = await Planet.find({ nameLower: req.params.name.toLowerCase() });
 
     if (planet.length === 0) {
       res.send({
         success: false,
-        message: "planet not found"
+        message: "planeta não encontrado"
       });
       return false;
     } else {
@@ -59,17 +72,17 @@ const add = async ({ Planet }, req, res) => {
 
     /* Verifica se planeta já existe */
     const getPlanet = await Planet.find({ name: result.name });
- 
+
     if (getPlanet.length > 0) {
       res.send({
         success: false,
         message: "planeta já cadastrado."
       });
     } else {
-
       let newPlanet = new Planet({
         _id: result._id,
         name: result.name,
+        nameLower: result.name.toLowerCase(),
         climate: result.climate,
         terrain: result.terrain,
         aparicoes: await getAparicoes(result.name)
@@ -92,7 +105,7 @@ const remove = async ({ Planet }, req, res) => {
     await Planet.remove({ _id: req.params.id });
     res.send({
       success: true,
-      message: "planet removed"
+      message: "planeta removido"
     });
   } catch (e) {
     res.send({
@@ -104,7 +117,7 @@ const remove = async ({ Planet }, req, res) => {
 
 const getAparicoes = async planetName => {
   const { data: result } = await api.get(`/planets/?search=${planetName}`);
-  return result.results.length ;
+  return result.results.length;
 };
 
 module.exports = {

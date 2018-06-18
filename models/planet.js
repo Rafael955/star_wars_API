@@ -5,6 +5,10 @@ const PlanetSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    nameLower: {
+        type: String,
+        required: true,
+    },
     climate: {
         type: String,
         required: true,
