@@ -26,7 +26,7 @@ const getById = async ({ Planet }, req, res) => {
   try {
     const planet = await Planet.findOne({ _id: req.params.id });
 
-    if (planet === null) {
+    if (planet.length === 0) {
       res.send({
         success: false,
         message: "planeta não encontrado"
